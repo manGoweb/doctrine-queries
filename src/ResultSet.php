@@ -137,7 +137,7 @@ class ResultSet extends Nette\Object implements \IteratorAggregate, IResultSet
 
 
 	/**
-	 * @throws \Kdyby\Doctrine\QueryException
+	 * @throws ORM\Query\QueryException
 	 * @return int
 	 */
 	public function getTotalCount()

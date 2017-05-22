@@ -1,7 +1,7 @@
 <?php
 namespace Librette\Doctrine\Queries;
 
-use Kdyby\Doctrine\EntityManager;
+use Doctrine\ORM\EntityManager;
 use Kdyby\Doctrine\QueryBuilder;
 use Librette\Queries\IQueryable;
 use Librette\Queries\IQueryHandler;
@@ -40,7 +40,7 @@ class Queryable extends Object implements IQueryable
 	 */
 	public function createQueryBuilder($entityClass = NULL, $alias = NULL, $indexBy = NULL)
 	{
-		$qb = $this->entityManager->createQueryBuilder();
+		$qb = new QueryBuilder($this->entityManager);
 		if ($entityClass) {
 			$qb->from($entityClass, $alias, $indexBy);
 			$qb->select($alias);

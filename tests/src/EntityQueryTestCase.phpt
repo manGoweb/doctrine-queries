@@ -32,7 +32,8 @@ class EntityQueryTestCase extends Tester\TestCase
 	{
 		$em = $this->createMemoryManager();
 		$queryHandler = new QueryHandler(new Queryable($em, \Mockery::mock(IQueryHandlerAccessor::class)));
-		$em->persist($user = new User('John'))->flush();
+		$em->persist($user = new User('John'));
+		$em->flush();
 		$em->getConnection()->getConfiguration()->setSQLLogger($logger = new DebugStack());
 		Assert::same(0, $logger->currentQuery);
 		$query = new EntityQuery(User::class, $user->getId());
@@ -45,7 +46,8 @@ class EntityQueryTestCase extends Tester\TestCase
 	{
 		$em = $this->createMemoryManager();
 		$queryHandler = new QueryHandler(new Queryable($em, \Mockery::mock(IQueryHandlerAccessor::class)));
-		$em->persist($user = new User('John'))->flush();
+		$em->persist($user = new User('John'));
+		$em->flush();
 		$em->clear();
 
 		$em->getConnection()->getConfiguration()->setSQLLogger($logger = new DebugStack());

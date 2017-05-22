@@ -38,7 +38,9 @@ class BaseQueryObjectTestCase extends Tester\TestCase
 		$queryHandler = new MainQueryHandler();
 		$accessor = \Mockery::mock(IQueryHandlerAccessor::class)->shouldReceive('get')->andReturn($queryHandler)->getMock();
 		$queryHandler->addHandler(new QueryHandler(new Queryable($em, $accessor)));
-		$em->persist(new User('John'))->persist(new User('Jack'))->flush();
+		$em->persist(new User('John'));
+		$em->persist(new User('Jack'));
+		$em->flush();
 		Assert::same(2, $queryHandler->fetch(new UserCountQuery()));
 	}
 

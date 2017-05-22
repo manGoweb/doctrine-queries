@@ -1,7 +1,7 @@
 <?php
 namespace LibretteTests\Doctrine\Queries\Mocks;
 
-use Kdyby\Doctrine\EntityManager;
+use Doctrine\ORM\EntityManager;
 
 class EntityManagerMock extends EntityManager
 {

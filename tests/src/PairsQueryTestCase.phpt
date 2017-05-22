@@ -1,8 +1,8 @@
 <?php
 namespace LibretteTests\Doctrine\Queries;
 
-use Kdyby\Doctrine\EntityManager;
-use Kdyby\Doctrine\EntityRepository;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityRepository;
 use Librette\Doctrine\Queries\PairsQuery;
 use Librette\Doctrine\Queries\Queryable;
 use Librette\Doctrine\Queries\QueryHandler;

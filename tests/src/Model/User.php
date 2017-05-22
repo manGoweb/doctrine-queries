@@ -10,8 +10,13 @@ use Kdyby\Doctrine\Entities\BaseEntity;
  */
 class User
 {
-	use Identifier;
-
+    /**
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
+     * @var int
+     */
+    private $id;
 
 	/**
 	 * @var string
@@ -24,6 +29,14 @@ class User
 	{
 		$this->name = $name;
 	}
+
+    /**
+     * @return int
+     */
+    public function getId() : int
+    {
+        return $this->id;
+    }
 
     /**
      * @return string
