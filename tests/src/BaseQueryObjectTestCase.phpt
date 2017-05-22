@@ -53,4 +53,4 @@ class BaseQueryObjectTestCase extends Tester\TestCase
 }
 
 
-\run(new BaseQueryObjectTestCase());
+(new BaseQueryObjectTestCase())->run();

@@ -56,4 +56,4 @@ class PairsQueryTestCase extends Tester\TestCase
 }
 
 
-\run(new PairsQueryTestCase());
+(new PairsQueryTestCase())->run();

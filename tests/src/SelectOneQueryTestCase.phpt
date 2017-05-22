@@ -47,4 +47,4 @@ class SelectOneQueryTestCase extends Tester\TestCase
 }
 
 
-\run(new SelectOneQueryTestCase());
+(new SelectOneQueryTestCase())->run();

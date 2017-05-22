@@ -62,4 +62,4 @@ class EntityQueryTestCase extends Tester\TestCase
 }
 
 
-\run(new EntityQueryTestCase());
+(new EntityQueryTestCase())->run();

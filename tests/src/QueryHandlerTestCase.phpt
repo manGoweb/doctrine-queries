@@ -55,4 +55,4 @@ class QueryHandlerTestCase extends Tester\TestCase
 }
 
 
-\run(new QueryHandlerTestCase());
+(new QueryHandlerTestCase())->run();
