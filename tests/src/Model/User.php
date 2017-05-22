@@ -8,7 +8,7 @@ use Kdyby\Doctrine\Entities\BaseEntity;
 /**
  * @ORM\Entity
  */
-class User extends BaseEntity
+class User
 {
 	use Identifier;
 
@@ -25,5 +25,12 @@ class User extends BaseEntity
 		$this->name = $name;
 	}
 
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
 
 }
