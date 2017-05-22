@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace LibretteTests\Doctrine\Queries;
 
 use Doctrine\Common\Cache\ArrayCache;
