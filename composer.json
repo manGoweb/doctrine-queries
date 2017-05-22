@@ -2,6 +2,7 @@
 	"name": "librette/doctrine-queries",
 	"license": ["BSD-3-Clause", "GPL-2.0", "GPL-3.0"],
 	"require": {
+		"php": "^7.1",
 		"librette/queries": "@dev",
 		"nette/utils": "~2.2",
 		"kdyby/doctrine": "@dev",
