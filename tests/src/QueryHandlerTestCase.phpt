@@ -1,17 +1,13 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace LibretteTests\Doctrine\Queries;
 
-use Librette\Doctrine\Queries\BaseQueryObject;
-use Librette\Doctrine\Queries\IQuery;
-use Librette\Doctrine\Queries\Queryable;
-use Librette\Doctrine\Queries\QueryHandler;
-use Librette\Doctrine\Queries\QueryObject;
+use Librette\Doctrine\Queries\DoctrineQuery;
+use Librette\Doctrine\Queries\DoctrineQueryable;
+use Librette\Doctrine\Queries\DoctrineQueryHandler;
+use Librette\Doctrine\Queries\IDoctrineQuery;
 use Librette\Queries\CountQuery;
-use Librette\Queries\IQuery as BaseQuery;
-use Nette;
+use Librette\Queries\IQuery;
 use Tester;
 use Tester\Assert;
 
@@ -19,12 +15,10 @@ require_once __DIR__ . '/../bootstrap.php';
 
 
 /**
- * @author David Matějka
  * @testCase
  */
 class QueryHandlerTestCase extends Tester\TestCase
 {
-
 	public function setUp()
 	{
 	}
@@ -38,23 +32,26 @@ class QueryHandlerTestCase extends Tester\TestCase
 
 	public function testSupports()
 	{
-		$queryHandler = new QueryHandler(\Mockery::mock(Queryable::class));
-		Assert::true($queryHandler->supports(\Mockery::mock(BaseQueryObject::class)));
-		Assert::true($queryHandler->supports(\Mockery::mock(QueryObject::class)));
-		Assert::true($queryHandler->supports(\Mockery::mock(IQuery::class)));
-		Assert::false($queryHandler->supports(\Mockery::mock(BaseQuery::class)));
+		$queryHandler = new DoctrineQueryHandler(\Mockery::mock(DoctrineQueryable::class));
+		Assert::true($queryHandler->supports(\Mockery::mock(DoctrineQuery::class)));
+		Assert::true($queryHandler->supports(\Mockery::mock(IDoctrineQuery::class)));
+		Assert::false($queryHandler->supports(\Mockery::mock(IQuery::class)));
 		Assert::false($queryHandler->supports(\Mockery::mock(CountQuery::class)));
 	}
 
 
 	public function testFetch()
 	{
-		$queryHandler = new QueryHandler($queryable = \Mockery::mock(Queryable::class));
-		$queryHandler->fetch(\Mockery::mock(IQuery::class)->shouldReceive('fetch')->once()->with($queryable)->getMock());
-		Assert::true(TRUE);
+		$queryable = \Mockery::mock(DoctrineQueryable::class);
+
+		$query = \Mockery::mock(IDoctrineQuery::class);
+		$query->shouldReceive('fetch')->once()->with($queryable);
+
+		Assert::noError(function () use ($queryable, $query) {
+			$queryHandler = new DoctrineQueryHandler($queryable);
+			$queryHandler->fetch($query);
+		});
 	}
-
-
 }
 
 

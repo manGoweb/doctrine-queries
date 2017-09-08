@@ -1,52 +1,44 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace LibretteTests\Doctrine\Queries\Model;
 
 use Doctrine\ORM\Mapping as ORM;
-use Kdyby\Doctrine\Entities\Attributes\Identifier;
-use Kdyby\Doctrine\Entities\BaseEntity;
+
 
 /**
  * @ORM\Entity
  */
 class User
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     * @var int
-     */
-    private $id;
+	/**
+	 * @ORM\Id
+	 * @ORM\GeneratedValue
+	 * @ORM\Column(type="integer")
+	 * @var int
+	 */
+	private $id;
 
 	/**
 	 * @var string
 	 * @ORM\Column(type="string")
 	 */
-	protected $name;
+	private $name;
 
 
-	public function __construct($name)
+	public function __construct(string $name)
 	{
 		$this->name = $name;
 	}
 
-    /**
-     * @return int
-     */
-    public function getId() : int
-    {
-        return $this->id;
-    }
 
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
+	public function getId(): int
+	{
+		return $this->id;
+	}
 
+
+	public function getName(): string
+	{
+		return $this->name;
+	}
 }

@@ -1,25 +1,23 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace LibretteTests\Doctrine\Queries\Queries;
 
-use Librette\Doctrine\Queries\BaseQueryObject;
-use Librette\Doctrine\Queries\Queryable;
+use Librette\Doctrine\Queries\DoctrineQuery;
+use Librette\Doctrine\Queries\DoctrineQueryable;
+use Librette\Queries\IQueryable;
 use LibretteTests\Doctrine\Queries\Model\User;
 
+
 /**
- * @author David Matejka
+ * @method int fetch(IQueryable $queryable)
  */
-class UserCountQuery extends BaseQueryObject
+class UserCountQuery extends DoctrineQuery
 {
-
-
-	protected function doFetch(Queryable $queryable)
+	protected function doFetch(DoctrineQueryable $queryable)
 	{
-		return (int) $queryable->createQueryBuilder(User::class, 'u')
-			->select('COUNT(u.id) AS c')
-			->getQuery()->getSingleScalarResult();
-	}
+		$qb = $queryable->createQueryBuilder(User::class, 'user');
+		$qb->select('COUNT(user.id) AS countX');
 
+		return (int) $qb->getQuery()->getSingleScalarResult();
+	}
 }

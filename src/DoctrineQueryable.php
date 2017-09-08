@@ -1,22 +1,17 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Librette\Doctrine\Queries;
 
 use Doctrine\ORM\EntityManager;
-use Kdyby\Doctrine\QueryBuilder;
+use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
 use Librette\Queries\IQueryable;
 use Librette\Queries\IQueryHandler;
 use Librette\Queries\IQueryHandlerAccessor;
-use Nette\Object;
 
-/**
- * @author David Matejka
- */
-class Queryable extends Object implements IQueryable
+
+class DoctrineQueryable implements IQueryable
 {
-
 	/** @var EntityManager */
 	protected $entityManager;
 
@@ -24,10 +19,6 @@ class Queryable extends Object implements IQueryable
 	private $queryHandlerAccessor;
 
 
-	/**
-	 * @param EntityManager
-	 * @param IQueryHandlerAccessor
-	 */
 	public function __construct(EntityManager $entityManager, IQueryHandlerAccessor $queryHandlerAccessor)
 	{
 		$this->entityManager = $entityManager;
@@ -35,16 +26,11 @@ class Queryable extends Object implements IQueryable
 	}
 
 
-	/**
-	 * @param string|null
-	 * @param string|null
-	 * @param string|null
-	 * @return QueryBuilder
-	 */
-	public function createQueryBuilder($entityClass = NULL, $alias = NULL, $indexBy = NULL)
+	public function createQueryBuilder(?string $entityClass = NULL, ?string $alias = NULL, ?string $indexBy = NULL): QueryBuilder
 	{
 		$qb = new QueryBuilder($this->entityManager);
-		if ($entityClass) {
+
+		if ($entityClass !== NULL) {
 			$qb->from($entityClass, $alias, $indexBy);
 			$qb->select($alias);
 		}
@@ -53,27 +39,20 @@ class Queryable extends Object implements IQueryable
 	}
 
 
-	public function createQuery($query)
+	public function createQuery(string $dql): Query
 	{
-		return $this->entityManager->createQuery($query);
+		return $this->entityManager->createQuery($dql);
 	}
 
 
-	/**
-	 * @return IQueryHandler
-	 */
-	public function getHandler()
+	public function getHandler(): IQueryHandler
 	{
 		return $this->queryHandlerAccessor->get();
 	}
 
 
-	/**
-	 * @return EntityManager
-	 */
-	public function getEntityManager()
+	public function getEntityManager(): EntityManager
 	{
 		return $this->entityManager;
 	}
-
 }

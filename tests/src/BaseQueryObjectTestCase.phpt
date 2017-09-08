@@ -1,19 +1,15 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace LibretteTests\Doctrine\Queries;
 
-use Librette\Doctrine\Queries\Queryable;
-use Librette\Doctrine\Queries\QueryHandler;
+use Librette\Doctrine\Queries\DoctrineQueryable;
+use Librette\Doctrine\Queries\DoctrineQueryHandler;
 use Librette\Queries\Internal\InternalQueryable;
-use Librette\Queries\InvalidArgumentException;
 use Librette\Queries\IQueryHandler;
 use Librette\Queries\IQueryHandlerAccessor;
 use Librette\Queries\MainQueryHandler;
 use LibretteTests\Doctrine\Queries\Model\User;
 use LibretteTests\Doctrine\Queries\Queries\UserCountQuery;
-use Nette;
 use Tester;
 use Tester\Assert;
 
@@ -21,7 +17,6 @@ require_once __DIR__ . '/../bootstrap.php';
 
 
 /**
- * @author David Matějka
  * @testCase
  */
 class BaseQueryObjectTestCase extends Tester\TestCase
@@ -40,7 +35,7 @@ class BaseQueryObjectTestCase extends Tester\TestCase
 		$em = $this->createMemoryManager();
 		$queryHandler = new MainQueryHandler();
 		$accessor = \Mockery::mock(IQueryHandlerAccessor::class)->shouldReceive('get')->andReturn($queryHandler)->getMock();
-		$queryHandler->addHandler(new QueryHandler(new Queryable($em, $accessor)));
+		$queryHandler->addHandler(new DoctrineQueryHandler(new DoctrineQueryable($em, $accessor)));
 		$em->persist(new User('John'));
 		$em->persist(new User('Jack'));
 		$em->flush();
@@ -50,11 +45,13 @@ class BaseQueryObjectTestCase extends Tester\TestCase
 
 	public function testInvalidQueryable()
 	{
-		Assert::throws(function () {
-			(new UserCountQuery())->fetch(new InternalQueryable(\Mockery::mock(IQueryHandler::class)));
-		}, InvalidArgumentException::class);
+		Assert::throws(
+			function () {
+				(new UserCountQuery())->fetch(new InternalQueryable(\Mockery::mock(IQueryHandler::class)));
+			},
+			\LogicException::class
+		);
 	}
-
 }
 
 

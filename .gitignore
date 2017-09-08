@@ -1,7 +1,7 @@
-vendor
-composer.lock
-tests/tmp/*
-tests/**/coverage.*
-tests/**/*.actual
-tests/**/*.expected
-!.gitkeep
+/composer.lock
+/tests/**/*.actual
+/tests/**/*.expected
+/tests/**/coverage.*
+/tests/php.ini
+/tests/tmp/*
+/vendor
