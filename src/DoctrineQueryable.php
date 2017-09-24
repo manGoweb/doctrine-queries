@@ -15,11 +15,11 @@ class DoctrineQueryable implements IQueryable
 	/** @var EntityManager */
 	protected $entityManager;
 
-	/** @var IQueryHandlerAccessor */
+	/** @var NULL|IQueryHandlerAccessor */
 	private $queryHandlerAccessor;
 
 
-	public function __construct(EntityManager $entityManager, IQueryHandlerAccessor $queryHandlerAccessor)
+	public function __construct(EntityManager $entityManager, ?IQueryHandlerAccessor $queryHandlerAccessor = NULL)
 	{
 		$this->entityManager = $entityManager;
 		$this->queryHandlerAccessor = $queryHandlerAccessor;
